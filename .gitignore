@@ -131,4 +131,5 @@ dmypy.json
 
 
 # Pokedex data
-Pokedex/*
+Pokedex/
+read_json.py

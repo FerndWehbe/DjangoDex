@@ -6,23 +6,19 @@ from dex.models import ElementType, Ability, Pokemon
 
 class MembershipElemntTypeInline(admin.TabularInline):
     model = Pokemon.types.through
-    fields = (
-        "name",
-        "types",
-    )
-    # readonly_fields = fields
+    can_delete: bool = False
     extra = 0
 
 
 class MembershipAbilitiesInline(admin.TabularInline):
     model = Pokemon.abilities.through
-    fields = ("name", "abilities", "hidden")
-    # readonly_fields = fields
+    can_delete: bool = False
     extra = 0
 
 
 @admin.register(ElementType)
 class AdminElementType(admin.ModelAdmin):
+    fields = ("name",)
     search_fields = ("name",)
     list_display = ("name",)
     empty_value_display = "-empty-"
@@ -30,7 +26,8 @@ class AdminElementType(admin.ModelAdmin):
 
 @admin.register(Ability)
 class AdminAbility(admin.ModelAdmin):
-    search_fields = ("name", "hidden")
+    fields = ("name", "description")
+    search_fields = ("name",)
     list_display = ("name",)
     empty_value_display = "-empty-"
 
@@ -43,8 +40,8 @@ class AdminPokemon(admin.ModelAdmin):
             None,
             {
                 "fields": (
+                    "poke_id",
                     "name",
-                    "types",
                     "hp",
                     "attack",
                     "defense",
@@ -62,18 +59,23 @@ class AdminPokemon(admin.ModelAdmin):
                     "xp",
                     "image_url",
                     "poke_url",
-                    "abilities",
                     "height",
                     "weight",
                 ),
             },
         ),
+        (
+            "Abilities",
+            {
+                "fields": ("hidden_ability",),
+            },
+        ),
     ]
 
     inlines = [
-        MembershipElemntTypeInline,
         MembershipAbilitiesInline,
+        MembershipElemntTypeInline,
     ]
-    search_fields = ("id", "name", "types", "abilities")
-    list_display = ("id", "name")
+    search_fields = ("poke_id", "name", "types", "abilities")
+    list_display = ("name", "poke_id")
     empty_value_display = "-empty-"

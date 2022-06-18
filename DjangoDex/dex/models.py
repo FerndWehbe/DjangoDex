@@ -6,7 +6,7 @@ from django.db import models
 
 
 class ElementType(models.Model):
-    name = models.CharField(max_length=30)
+    name = models.CharField(max_length=30, unique=True)
     slug = models.SlugField(null=False, unique=True)
 
     class Meta:
@@ -25,8 +25,7 @@ class ElementType(models.Model):
 
 
 class Ability(models.Model):
-    name = models.CharField(max_length=50)
-    hidden = models.BooleanField()
+    name = models.CharField(max_length=50, unique=True)
     slug = models.SlugField(null=False, unique=True)
     description = models.TextField()
 
@@ -42,18 +41,22 @@ class Ability(models.Model):
     def save(self, *args, **kwargs):
         if not self.id:
             self.slug = slugify(self.name)
-        super(ElementType, self).save(*args, **kwargs)
+        super(Ability, self).save(*args, **kwargs)
 
 
 class Pokemon(models.Model):
-    id = models.IntegerField(
-        primary_key=True, null=False, blank=True, unique=True
-    )
+    poke_id = models.IntegerField(null=False, blank=True, unique=True)
     name = models.CharField(max_length=50)
     xp = models.IntegerField()
     image_url = models.URLField()
     poke_url = models.URLField()
     abilities = models.ManyToManyField(Ability)
+    hidden_ability = models.ForeignKey(
+        Ability,
+        on_delete=models.CASCADE,
+        null=True,
+        related_name="hidden_ability",
+    )
     types = models.ManyToManyField(ElementType)
     height = models.IntegerField()
     weight = models.IntegerField()
@@ -67,14 +70,14 @@ class Pokemon(models.Model):
     speed = models.IntegerField()
 
     class Meta:
-        ordering = ["id"]
+        ordering = ["poke_id"]
 
     def __str__(self) -> str:
         return self.name
 
     def get_absolute_url(self):
         return reverse(
-            "pokemon-detail", kwargs={"slug": self.slug, "id": self.id}
+            "pokemon-detail", kwargs={"slug": self.slug, "poke_id": self.id}
         )
 
     def save(self, *args, **kwargs):
