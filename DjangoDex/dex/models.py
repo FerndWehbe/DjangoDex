@@ -26,6 +26,7 @@ class ElementType(models.Model):
 
 class Ability(models.Model):
     name = models.CharField(max_length=50)
+    hidden = models.BooleanField()
     slug = models.SlugField(null=False, unique=True)
     description = models.TextField()
 
