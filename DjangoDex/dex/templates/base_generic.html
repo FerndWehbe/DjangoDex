@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt/br">
+
+<head>
+    {% block title %} <title>DjangoDex</title> {% endblock %}
+    {% load static %}
+    {% load static tailwind_tags %}
+    {% load compress %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+        integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
+        crossorigin="anonymous" />
+    <!-- <link rel="stylesheet" href="{% static 'css/dist/styles.css' %}"> -->
+    {% tailwind_css %}
+</head>
+<body class="bg-gray-100">
+    <header class="bg-blue-500 md:ml-64 py-6 px-3">
+        <div class="container max-w-full mx-auto flex items-center justify-between md:pr-8 md:pl-10">
+
+        </div>
+    </header>
+    <main class="bg-gray-600">
+        <div
+            class="h-screen fixed top-0 md:left-0 -left-64 overflow-y-auto flex-row flex-nowrap overflow-hidden shadow-xl bg-white w-64 z-10 py-4 px-6 transition-all duration-300">
+            <div class="flex-col items-stretch min-h-full flex-nowrap px-0 relative">
+                <a class="mt-2 text-center w-full inline-block" target="_blank" rel="noreferrer" href="{% url 'dex' %}">
+                    <h1 class="text-gray-900 text-xl font-serif font-bold leading-normal mt-0 mb-2">Django Dex</h1>
+                </a>
+                <div class="flex flex-col">
+                    <hr class="my-4 min-w-full">
+                    <ul class="flex-col min-w-full flex list-none">
+                        <li class="rounded-lg mb-4">
+                            <a class="flex items-center gap-4 text-sm text-gray-700 font-light px-4 py-3 rounded-lg"
+                                href="{% url 'pokes' %}">
+                                <span class="material-icons undefined text-2x1 leading-none">dashboard</span>
+                                Pokedex
+                            </a>
+                        </li>
+                        <li class="rounded-lg mb-4">
+                            <a class="flex items-center gap-4 text-sm text-gray-700 font-light px-4 py-3 rounded-lg"
+                                href="#">
+                                <span class="material-icons undefined text-2xl leading-none">fit_screen</span>
+                                Abilities
+                            </a>
+                        </li>
+                        <li class="rounded-lg mb-4">
+                            <a class="flex items-center gap-4 text-sm text-gray-700 font-light px-4 py-3 rounded-lg"
+                                href="#">
+                                <span class="material-icons undefined text-2xl leading-none">whatshot</span>
+                                Types
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="flex-col min-w-full flex list-none absolute bottom-0"></ul>
+                </div>
+            </div>
+        </div>
+    </main>
+    <section>
+        <div class="md:ml-64">
+            <div class="container mx-auto max-w-full">                
+                {% block content %}
+                {% endblock %}
+            </div>
+        </div>
+    </section>
+
+    <footer
+        class="py-6 px-16 border-t border-gray-200 font-light flex flex-col lg:flex-row justify-between items-center">
+        {% block footer %}
+        {% endblock %}
+    </footer>
+
+</body>
+
+</html>

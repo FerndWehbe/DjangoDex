@@ -133,3 +133,5 @@ dmypy.json
 # Pokedex data
 Pokedex/
 read_json.py
+
+node_modules/

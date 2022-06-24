@@ -1,0 +1,46 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<div class="bg-gradient-to-tr from-orange-100 via-violet-600 to-sky-900">
+    {% if pokemon_list %}
+    {% for pokemon in pokemon_list %}
+    {% if forloop.counter0|divisibleby:3 %}<div class="flex flex-nowrap">{% endif %}
+        <div class="flex-1 p-4">
+            <figure class="rounded-xl p-8 md:p-0 bg-slate-100 bg-opacity-10 backdrop-blur-lg drop-shadow-lg">
+                <img class="w-24 h-24 md:w-48 md:h-auto md:rounded-none rounded-full max-auto"
+                    src="{{pokemon.image_url}}" alt="">
+                <div class="pt-6 md:p-8 text-left md:text-left space-y-4">
+                    <figcaption class="font-medium">
+                        <div class="text-sky-500 dark:text-sky-400">
+                            {{ pokemon.name|capfirst }}
+                        </div>
+                        <div class="text-slate-700 ">
+                            {% for type in pokemon.types.all %}
+                            <a href="#"
+                                class="bg-{{ type.name }} shadow-slate-400 border-solid border-t-gray-50 text-white hover:opacity-80 rounded w-16 h-3 p-0.5">{{ type.name }}</a>
+                            {% empty %}
+                            None Element
+                            {% endfor %}
+                        </div>
+                    </figcaption>
+                </div>
+            </figure>
+        </div>
+        {% if forloop.counter|divisibleby:3 %}</div>{% endif %}
+    {% endfor %}
+
+    {% endif %}
+</div>
+{% endblock %}
+{% block footer %}
+{% if is_paginated %}
+{% if page_obj.has_previous %}
+<a class="flex-1" href="{% url 'pokes' %}?page={{ page_obj.previous_page_number }}">Previous</a>
+{% endif %}
+
+{% if page_obj.has_next %}
+<a class="flex-1" href="{% url 'pokes' %}?page={{ page_obj.next_page_number }}">Next</a>
+{% endif %}
+
+{% endif %}
+{% endblock %}

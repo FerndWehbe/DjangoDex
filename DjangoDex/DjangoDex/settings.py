@@ -12,9 +12,11 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from dotenv import load_dotenv
 from pathlib import Path
+import mimetypes
 import os
 
 load_dotenv()
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -29,6 +31,7 @@ SECRET_KEY = os.getenv("DJANGO_SECRET")
 DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
+INTERNAL_IPS = ["172.21.134.135", "127.0.0.1", "*"]
 
 
 # Application definition
@@ -40,6 +43,9 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django_browser_reload",
+    "compressor",
+    "tailwind",
     "dex",
 ]
 
@@ -51,6 +57,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "django_browser_reload.middleware.BrowserReloadMiddleware",
 ]
 
 ROOT_URLCONF = "DjangoDex.urls"
@@ -73,7 +80,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "DjangoDex.wsgi.application"
 
-
+TAILWIND_APP_NAME = "dex"
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
@@ -132,6 +139,16 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 STATIC_ROOT = BASE_DIR / STATIC_URL
+# STATICFILES_DIRS = (BASE_DIR / STATIC_URL,)
+
+COMPRESS_ROOT = BASE_DIR / "static"
+COMPRESS_ENABLED = True
+
+STATICFILES_FINDERS = (
+    "compressor.finders.CompressorFinder",
+    "django.contrib.staticfiles.finders.FileSystemFinder",
+    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
+)
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
