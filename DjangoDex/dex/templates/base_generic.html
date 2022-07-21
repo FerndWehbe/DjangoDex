@@ -27,7 +27,7 @@
         <div
             class="h-screen fixed top-0 md:left-0 -left-64 overflow-y-auto flex-row flex-nowrap overflow-hidden shadow-xl bg-white w-64 z-10 py-4 px-6 transition-all duration-300">
             <div class="flex-col items-stretch min-h-full flex-nowrap px-0 relative">
-                <a class="mt-2 text-center w-full inline-block" target="_blank" rel="noreferrer" href="{% url 'dex' %}">
+                <a class="mt-2 text-center w-full inline-block" rel="noreferrer" href="{% url 'dex' %}">
                     <h1 class="text-gray-900 text-xl font-serif font-bold leading-normal mt-0 mb-2">Django Dex</h1>
                 </a>
                 <div class="flex flex-col">
@@ -66,14 +66,14 @@
                 {% block content %}
                 {% endblock %}
             </div>
+            <footer
+                class="py-6 px-16 border-t border-gray-200 font-light flex flex-col lg:flex-row justify-between items-center space-x-1">
+                {% block footer %}
+                {% endblock %}
+            </footer>
         </div>
     </section>
 
-    <footer
-        class="py-6 px-16 border-t border-gray-200 font-light flex flex-col lg:flex-row justify-between items-center">
-        {% block footer %}
-        {% endblock %}
-    </footer>
 
 </body>
 
