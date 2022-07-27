@@ -133,5 +133,6 @@ dmypy.json
 # Pokedex data
 Pokedex/
 read_json.py
+poke_moves_by_uplevel.json
 
 node_modules/

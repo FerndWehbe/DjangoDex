@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from dotenv import load_dotenv
 from pathlib import Path
-import mimetypes
 import os
 
 load_dotenv()

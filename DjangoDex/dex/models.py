@@ -44,6 +44,37 @@ class Ability(models.Model):
         super(Ability, self).save(*args, **kwargs)
 
 
+class Move(models.Model):
+    move_name = models.CharField(max_length=50)
+    move_description = models.TextField(blank=True, null=True)
+    slug = models.SlugField(null=False, unique=True)
+
+    class Meta:
+        ordering = ["move_name"]
+
+    def __str__(self) -> str:
+        return self.move_name
+
+    def get_absolute_url(self):
+        return reverse("ability-detail", kwargs={"slug": self.slug})
+
+    def save(self, *args, **kwargs):
+        if not self.id:
+            self.slug = slugify(self.move_name)
+        super(Move, self).save(*args, **kwargs)
+
+
+class MoveByLevel(models.Model):
+    learned_level = models.IntegerField()
+    learned_move = models.ForeignKey(Move, on_delete=models.CASCADE)
+
+    class Meta:
+        ordering = ["learned_level"]
+
+    def __str__(self) -> str:
+        return self.learned_move.move_name
+
+
 class Pokemon(models.Model):
     poke_id = models.IntegerField(null=False, blank=True, unique=True)
     name = models.CharField(max_length=50)
@@ -68,6 +99,9 @@ class Pokemon(models.Model):
     special_attack = models.IntegerField()
     special_defense = models.IntegerField()
     speed = models.IntegerField()
+    max_status = models.IntegerField()
+
+    move_by_level = models.ManyToManyField(MoveByLevel)
 
     class Meta:
         ordering = ["poke_id"]
@@ -83,4 +117,12 @@ class Pokemon(models.Model):
     def save(self, *args, **kwargs):
         if not self.id:
             self.slug = slugify(self.name)
+        self.max_status = max(
+            self.hp,
+            self.attack,
+            self.defense,
+            self.special_attack,
+            self.special_defense,
+            self.speed,
+        )
         super(Pokemon, self).save(*args, **kwargs)
