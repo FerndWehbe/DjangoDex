@@ -1,3 +1,4 @@
+from statistics import mode
 from django.template.defaultfilters import slugify
 from django.urls import reverse
 from django.db import models
@@ -47,6 +48,12 @@ class Ability(models.Model):
 class Move(models.Model):
     move_name = models.CharField(max_length=50)
     move_description = models.TextField(blank=True, null=True)
+    element_type = models.ForeignKey(ElementType, on_delete=models.CASCADE)
+    category = models.CharField(max_length=30)
+    accuracy = models.IntegerField(blank=True, null=True)
+    power = models.IntegerField(blank=True)
+    pp = models.IntegerField()
+    probability = models.IntegerField()
     slug = models.SlugField(null=False, unique=True)
 
     class Meta:

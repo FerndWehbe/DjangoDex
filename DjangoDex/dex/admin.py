@@ -118,6 +118,12 @@ class AdminMoves(admin.ModelAdmin):
                 "fields": (
                     "move_name",
                     "move_description",
+                    "category",
+                    "power",
+                    "accuracy",
+                    "pp",
+                    "probability",
+                    "element_type",
                 )
             },
         ),
