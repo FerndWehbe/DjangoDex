@@ -117,9 +117,8 @@ class Pokemon(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse(
-            "pokemon-detail", kwargs={"slug": self.slug, "poke_id": self.id}
-        )
+        # , "poke_id": self.id
+        return reverse("pokemon-detail", kwargs={"slug": self.slug})
 
     def save(self, *args, **kwargs):
         if not self.id:

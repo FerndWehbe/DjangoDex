@@ -13,3 +13,8 @@ class PokemonListView(generic.ListView):
     model = Pokemon
     paginate_by: int = 30
     template_name: str = "pokemon_list.html"
+
+
+class PokemonDetailView(generic.DetailView):
+    model = Pokemon
+    template_name: str = "pokemon_detail.html"
