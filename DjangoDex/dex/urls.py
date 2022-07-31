@@ -14,4 +14,8 @@ urlpatterns += [
         views.PokemonDetailView.as_view(),
         name="pokemon-detail",
     ),
+    path("moves/", views.MoveListView.as_view(), name="moves"),
+    path(
+        "moves/<slug:slug>", views.MoveDetailView.as_view(), name="move-detail"
+    ),
 ]

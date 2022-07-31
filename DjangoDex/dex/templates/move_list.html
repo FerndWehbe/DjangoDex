@@ -1,0 +1,98 @@
+{% extends "base_generic.html" %}
+{% block content %}
+<div class="bg-gradient-to-tr from-orange-100 via-violet-600 to-sky-900">
+    {% if move_list %}
+    {% for move in move_list %}
+    {% if forloop.counter0|divisibleby:4 %}<div class="flex flex-nowrap">{% endif %}
+        <div class="flex-1 p-4">
+            <figure
+                class="rounded-xl p-8 md:p-0 bg-slate-100 bg-opacity-10 backdrop-blur-lg drop-shadow-lg h-64 flex flex-col justify-between">
+                <div class="flex justify-center w-full font-medium mt-4">
+                    <a href="{{ move.get_absolute_url }}">{{move.move_name}}</a>
+                </div>
+                <div class="text-slate-700 flex w-full justify-center">
+                    <button
+                        class="bg-{{ move.element_type }} shadow-slate-400 border-solid border-t-gray-50 text-white hover:opacity-80 rounded w-16 h-8 p-0.5">
+                        {{ move.element_type|capfirst }}
+                    </button>
+                </div>
+                <div id="infos" class="flex justify-center">
+                    <table class="items-center bg-transparent border-collapse">
+                        <tbody>
+                            <tr>
+                                <th
+                                    class="border-b align-middle font-semibold text-sm whitespace-nowrap border-slate-600 px-2 text-left">
+                                    Tipo</th>
+                                <th
+                                    class="border-b align-middle font-semibold text-sm whitespace-nowrap border-slate-600 px-2 text-left">
+                                    {{ move.category }}</th>
+                            </tr>
+                            <tr>
+                                <th
+                                    class="border-b align-middle font-semibold text-sm whitespace-nowrap border-slate-600 px-2 text-left">
+                                    Accuracy</th>
+                                <th
+                                    class="border-b align-middle font-semibold text-sm whitespace-nowrap border-slate-600 px-2 text-left">
+                                    {{ move.accuracy }}</th>
+                            </tr>
+                            <tr>
+                                <th
+                                    class="border-b align-middle font-semibold text-sm whitespace-nowrap border-slate-600 px-2 text-left">
+                                    Power</th>
+                                <th
+                                    class="border-b align-middle font-semibold text-sm whitespace-nowrap border-slate-600 px-2 text-left">
+                                    {{ move.power }}</th>
+                            </tr>
+                            <tr>
+                                <th
+                                    class="border-b align-middle font-semibold text-sm whitespace-nowrap border-slate-600 px-2 text-left">
+                                    PP</th>
+                                <th
+                                    class="border-b align-middle font-semibold text-sm whitespace-nowrap border-slate-600 px-2 text-left">
+                                    {{ move.pp }}</th>
+                            </tr>
+                            <tr>
+                                <th
+                                    class="border-b align-middle font-semibold text-sm whitespace-nowrap border-slate-600 px-2 text-left">
+                                    Chance</th>
+                                <th
+                                    class="border-b align-middle font-semibold text-sm whitespace-nowrap border-slate-600 px-2 text-left">
+                                    {{ move.probability }}</th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                {% if move.move_description %}
+                <div id="description" class="flex justify-center m-4 rounded bg-slate-100 bg-opacity-60 backdrop-blur-xl drop-shadow-lg">
+                    <p class="m-1">
+                        {{ move.move_description }}
+                    </p>
+                </div>
+                {% endif %}
+            </figure>
+        </div>
+        {% if forloop.counter|divisibleby:4 %}</div>{% endif %}
+    {% endfor %}
+    {% endif %}
+</div>
+{% endblock %}
+
+<!-- Footer Navigation -->
+{% block footer %}
+{% if is_paginated %}
+{% if page_obj.has_previous %}
+<a class="flex items-center px-4 py-2 font-bold text-gray-500 bg-gray-300 rounded-md hover:bg-blue-400 hover:text-white"
+    href="{% url 'moves' %}?page={{ page_obj.previous_page_number }}">Previous</a>
+{% else %}
+<a class="flex items-center px-4 py-2 text-gray-500 bg-gray-300 rounded-md">Previous</a>
+{% endif %}
+
+{% if page_obj.has_next %}
+<a class="px-4 py-2 font-bold text-gray-500 bg-gray-300 rounded-md hover:bg-blue-400 hover:text-white"
+    href="{% url 'moves' %}?page={{ page_obj.next_page_number }}">Next</a>
+{% else %}
+<a class="px-4 py-2 text-gray-500 bg-gray-300 rounded-md">Next</a>
+{% endif %}
+
+{% endif %}
+{% endblock %}

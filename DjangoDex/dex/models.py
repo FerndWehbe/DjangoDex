@@ -63,7 +63,7 @@ class Move(models.Model):
         return self.move_name
 
     def get_absolute_url(self):
-        return reverse("ability-detail", kwargs={"slug": self.slug})
+        return reverse("move-detail", kwargs={"slug": self.slug})
 
     def save(self, *args, **kwargs):
         if not self.id:
