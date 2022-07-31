@@ -1,4 +1,3 @@
-from statistics import mode
 from django.template.defaultfilters import slugify
 from django.urls import reverse
 from django.db import models

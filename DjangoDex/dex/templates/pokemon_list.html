@@ -9,10 +9,10 @@
             <figure class="rounded-xl p-8 md:p-0 bg-slate-100 bg-opacity-10 backdrop-blur-lg drop-shadow-lg flex" style="height: 300px;">
                 <div id="pokemon" class="h-full">
                     <img class="w-26 h-24 md:w-48 md:h-auto md:rounded-none rounded-full max-auto"
-                        src="{{pokemon.image_url}}" alt="">
+                        src="{{pokemon.image_url}}" onclick='window.location.href = "{{ pokemon.get_absolute_url }}"'>
                     <div class="pt-1 md:p-3 text-center md:text-left">
                         <figcaption class="font-medium w-44 h-full space-y-4">
-                            <div class="text-sky-500 dark:text-sky-400 flex justify-center">
+                            <div class="text-slate-500 dark:text-slate-400 flex justify-center">
                                 <a href="{{ pokemon.get_absolute_url }}">{{ pokemon.name|capfirst }}</a>
                             </div>
                             <div class="text-slate-700 flex items-center justify-around">
