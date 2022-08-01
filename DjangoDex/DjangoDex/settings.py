@@ -84,7 +84,7 @@ TAILWIND_APP_NAME = "dex"
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 
-if os.getenv("DBNAME"):
+if os.getenv("AMBIENT") == "PROD":
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.postgresql",
