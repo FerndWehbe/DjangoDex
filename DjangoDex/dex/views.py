@@ -63,6 +63,22 @@ def type_search(request):
         return HttpResponseRedirect("/element_types")
 
 
+def ability_search(request):
+    q = request.GET.get("ability_name")
+    if q is None:
+        messages.info(request, "Ability não encontrado!")
+        return HttpResponseRedirect("/abilities")
+    try:
+        abilities = Ability.objects.filter(name__icontains=q).first()
+        if not abilities:
+            messages.info(request, "Ability não encontrado!")
+            return HttpResponseRedirect("/abilities")
+        return redirect(f"/abilities/{abilities.name}")
+    except Exception:
+        messages.info(request, "Ability não encontrado!")
+        return HttpResponseRedirect("/abilities")
+
+
 class PokemonListView(generic.ListView):
     model: Model = Pokemon
     paginate_by: int = 30
@@ -106,6 +122,27 @@ class ElementTypeDetailView(generic.DetailView):
         context["pokemons"] = Pokemon.objects.filter(
             types__name=kwargs["object"]
         )
+        return context
+
+
+class AbilityListView(generic.ListView):
+    model: Model = Ability
+    paginate_by: int = 32
+    template_name: str = "ability_list.html"
+
+
+class AbilityDetailView(generic.DetailView):
+    model: Model = Ability
+    template_name: str = "ability_detail.html"
+
+    def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        ability = Pokemon.objects.filter(abilities__name=kwargs["object"])
+        if not ability:
+            ability = Pokemon.objects.filter(
+                hidden_ability__name=kwargs["object"]
+            )
+        context["pokemons"] = ability
         return context
 
 

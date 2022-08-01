@@ -6,6 +6,7 @@ urlpatterns = [
     path("pokemon_search/", views.pokemon_search, name="pokemon_search"),
     path("move_search/", views.move_search, name="move_search"),
     path("type_search/", views.type_search, name="type_search"),
+    path("ability_search/", views.ability_search, name="ability_search"),
 ]
 
 
@@ -30,6 +31,16 @@ urlpatterns += [
         "element_types/<slug:slug>",
         views.ElementTypeDetailView.as_view(),
         name="element_type-detail",
+    ),
+    path(
+        "abilities/",
+        views.AbilityListView.as_view(),
+        name="abilities",
+    ),
+    path(
+        "abilities/<slug:slug>",
+        views.AbilityDetailView.as_view(),
+        name="ability-detail",
     ),
 ]
 

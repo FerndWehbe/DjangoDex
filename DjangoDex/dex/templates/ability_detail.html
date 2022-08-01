@@ -1,0 +1,41 @@
+{% extends "base_generic.html" %}
+{% block content %}
+<div class="flex justify-between">
+    <div class="flex flex-col items-center w-1/4">
+        <h1 id="move_name" class="inline-block text-2xl p-4 sm:text-3xl font-extrabold tracking-tight text-slate-800">
+            {{ ability.name|capfirst }}
+        </h1>
+        {% if abbility.description %}
+        <div id="description"
+            class="flex justify-center m-4 rounded bg-slate-100 bg-opacity-60 backdrop-blur-xl drop-shadow-lg">
+            <p class="m-1">
+                {{ abbility.description }}
+            </p>
+        </div>
+        {% endif %}
+    </div>
+    <div id="pokemons" class="flex flex-col items-center w-full">
+        {% if pokemons %}
+        {% for pokemon in pokemons %}
+        {% if forloop.counter0|divisibleby:5 %}<div class="flex flex-nowrap">{% endif %}
+            <div class="flex-1 p-4">
+                <figure class="rounded-xl p-8 md:p-0 bg-slate-500 bg-opacity-10 backdrop-blur-lg drop-shadow-lg flex">
+                    <div id="pokemon" class="h-full">
+                        <img class="w-26 h-24 md:w-48 md:h-auto md:rounded-none rounded-full max-auto"
+                            src="{{pokemon.image_url}}"
+                            onclick='window.location.href = "{{ pokemon.get_absolute_url }}"'>
+                        <div class="pt-1 md:p-3 text-center md:text-left">
+                            <figcaption class="font-medium w-44 h-full space-y-4">
+                                <div class="text-slate-500 dark:text-slate-400 flex justify-center">
+                                    <a href="{{ pokemon.get_absolute_url }}">{{ pokemon.name|capfirst }}</a>
+                                </div>
+                            </figcaption>
+                        </div>
+                    </div>
+                </figure>
+            </div>
+        {% if forloop.counter|divisibleby:5 %}</div>{% endif %}
+        {% endfor %}
+        {% endif %}
+    </div>
+{% endblock %}
