@@ -49,10 +49,10 @@ class Move(models.Model):
     move_description = models.TextField(blank=True, null=True)
     element_type = models.ForeignKey(ElementType, on_delete=models.CASCADE)
     category = models.CharField(max_length=30)
-    accuracy = models.IntegerField(blank=True, null=True)
-    power = models.IntegerField(blank=True)
-    pp = models.IntegerField()
-    probability = models.IntegerField()
+    accuracy = models.CharField(max_length=10, blank=True, null=True)
+    power = models.CharField(max_length=10, blank=True)
+    pp = models.CharField(max_length=10, blank=True)
+    probability = models.CharField(max_length=10, blank=True)
     slug = models.SlugField(null=False, unique=True)
 
     class Meta:

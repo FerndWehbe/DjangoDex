@@ -20,7 +20,8 @@
                             Tipo</th>
                         <th
                             class="border-b align-middle font-semibold text-sm whitespace-nowrap border-slate-600 px-2 text-left">
-                            {{ move.category }}</th>
+                            <img src="https://img.pokemondb.net/images/icons/{{ move.category }}.png"
+                            title="{{ move.category }}" class="object-cover w-8"></th>
                     </tr>
                     <tr>
                         <th
@@ -49,10 +50,10 @@
                     <tr>
                         <th
                             class="border-b align-middle font-semibold text-sm whitespace-nowrap border-slate-600 px-2 text-left">
-                            Chance</th>
+                            Probability</th>
                         <th
                             class="border-b align-middle font-semibold text-sm whitespace-nowrap border-slate-600 px-2 text-left">
-                            {{ move.probability }}</th>
+                            {{ move.probability }}%</th>
                     </tr>
                 </tbody>
             </table>
@@ -66,7 +67,7 @@
             <figure class="rounded-xl p-8 md:p-0 bg-slate-500 bg-opacity-10 backdrop-blur-lg drop-shadow-lg flex">
                 <div id="pokemon" class="h-full">
                     <img class="w-26 h-24 md:w-48 md:h-auto md:rounded-none rounded-full max-auto"
-                        src="{{pokemon.image_url}}" alt="">
+                        src="{{pokemon.image_url}}" onclick='window.location.href = "{{ pokemon.get_absolute_url }}"'>
                     <div class="pt-1 md:p-3 text-center md:text-left">
                         <figcaption class="font-medium w-44 h-full space-y-4">
                             <div class="text-slate-500 dark:text-slate-400 flex justify-center">
