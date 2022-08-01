@@ -30,7 +30,7 @@ SECRET_KEY = os.getenv("DJANGO_SECRET")
 DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
-INTERNAL_IPS = ["172.25.233.23", "127.0.0.1", "*"]
+INTERNAL_IPS = ["127.0.0.1"]
 
 
 # Application definition
@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "django_browser_reload",
     "compressor",
     "tailwind",
     "dex",
@@ -56,7 +55,6 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "django_browser_reload.middleware.BrowserReloadMiddleware",
 ]
 
 ROOT_URLCONF = "DjangoDex.urls"
