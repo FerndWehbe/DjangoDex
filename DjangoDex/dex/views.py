@@ -1,6 +1,8 @@
 from typing import Any, Dict
 from django.db.models import Model
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from dex.models import Pokemon, Ability, ElementType, Move, MoveByLevel
+from django.contrib import messages
 from django.shortcuts import redirect, render
 from django.views import generic
 
@@ -11,6 +13,38 @@ def index(request):
     # return render(request, "base_generic.html")
     # return render(request, "base.html")
     return redirect("pokes")
+
+
+def pokemon_search(request):
+    q = request.GET.get("pokemon_name")
+    if q is None:
+        messages.info(request, "Pokemon não encontrado!")
+        return HttpResponseRedirect("/pokes")
+    try:
+        pokemon = Pokemon.objects.filter(name__icontains=q).first()
+        if not pokemon:
+            messages.info(request, "Pokemon não encontrado!")
+            return HttpResponseRedirect("/pokes")
+        return redirect(f"/pokes/{pokemon}")
+    except Exception:
+        messages.info(request, "Pokemon não encontrado!")
+        return HttpResponseRedirect("/pokes")
+
+
+def move_search(request):
+    q = request.GET.get("move_name")
+    if q is None:
+        messages.info(request, "Move não encontrado!")
+        return HttpResponseRedirect("/moves")
+    try:
+        move = Move.objects.filter(move_name__icontains=q).first()
+        if not move:
+            messages.info(request, "Move não encontrado!")
+            return HttpResponseRedirect("/moves")
+        return redirect(f"/moves/{move.move_name.lower()}")
+    except Exception:
+        messages.info(request, "Move não encontrado!")
+        return HttpResponseRedirect("/moves")
 
 
 class PokemonListView(generic.ListView):
@@ -41,3 +75,11 @@ class MoveDetailView(generic.DetailView):
         )
         context["pokemons"] = moves
         return context
+
+
+# API
+def list_all_pokes(request):
+    poke = Pokemon.objects.values_list("name")
+    print(poke)
+    result = [name[0] for name in poke]
+    return JsonResponse(result, safe=False)

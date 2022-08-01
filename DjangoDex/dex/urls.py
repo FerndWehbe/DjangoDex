@@ -3,6 +3,8 @@ from dex import views
 
 urlpatterns = [
     path("", views.index, name="dex"),
+    path("pokemon_search/", views.pokemon_search, name="pokemon_search"),
+    path("move_search/", views.move_search, name="move_search"),
 ]
 
 
@@ -18,4 +20,11 @@ urlpatterns += [
     path(
         "moves/<slug:slug>", views.MoveDetailView.as_view(), name="move-detail"
     ),
+]
+
+
+# API
+
+urlpatterns += [
+    path("list_all_pokes/", views.list_all_pokes, name="list_all_pokes")
 ]
