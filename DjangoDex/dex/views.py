@@ -47,6 +47,22 @@ def move_search(request):
         return HttpResponseRedirect("/moves")
 
 
+def type_search(request):
+    q = request.GET.get("type_name")
+    if q is None:
+        messages.info(request, "Type não encontrado!")
+        return HttpResponseRedirect("/element_types")
+    try:
+        element_type = ElementType.objects.filter(name__icontains=q).first()
+        if not element_type:
+            messages.info(request, "Type não encontrado!")
+            return HttpResponseRedirect("/element_types")
+        return redirect(f"/element_types/{element_type.name.lower()}")
+    except Exception:
+        messages.info(request, "Type não encontrado!")
+        return HttpResponseRedirect("/element_types")
+
+
 class PokemonListView(generic.ListView):
     model: Model = Pokemon
     paginate_by: int = 30
@@ -70,16 +86,31 @@ class MoveDetailView(generic.DetailView):
 
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
         context = super().get_context_data(**kwargs)
-        moves = Pokemon.objects.filter(
+        context["pokemons"] = Pokemon.objects.filter(
             move_by_level__learned_move=kwargs["object"]
         )
-        context["pokemons"] = moves
+        return context
+
+
+class ElementTypeListView(generic.ListView):
+    model: Model = ElementType
+    template_name: str = "element_type_list.html"
+
+
+class ElementTypeDetailView(generic.DetailView):
+    model: Model = ElementType
+    template_name: str = "element_type_detail.html"
+
+    def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        context["pokemons"] = Pokemon.objects.filter(
+            types__name=kwargs["object"]
+        )
         return context
 
 
 # API
 def list_all_pokes(request):
     poke = Pokemon.objects.values_list("name")
-    print(poke)
     result = [name[0] for name in poke]
     return JsonResponse(result, safe=False)

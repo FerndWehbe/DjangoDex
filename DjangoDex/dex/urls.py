@@ -5,6 +5,7 @@ urlpatterns = [
     path("", views.index, name="dex"),
     path("pokemon_search/", views.pokemon_search, name="pokemon_search"),
     path("move_search/", views.move_search, name="move_search"),
+    path("type_search/", views.type_search, name="type_search"),
 ]
 
 
@@ -19,6 +20,16 @@ urlpatterns += [
     path("moves/", views.MoveListView.as_view(), name="moves"),
     path(
         "moves/<slug:slug>", views.MoveDetailView.as_view(), name="move-detail"
+    ),
+    path(
+        "element_types/",
+        views.ElementTypeListView.as_view(),
+        name="element_types",
+    ),
+    path(
+        "element_types/<slug:slug>",
+        views.ElementTypeDetailView.as_view(),
+        name="element_type-detail",
     ),
 ]
 
