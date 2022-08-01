@@ -9,10 +9,10 @@
                 <div class="flex justify-center w-full font-medium mt-4">
                     <a href="{{ ability.get_absolute_url }}">{{ ability.name|capfirst }}</a>
                 </div>
-                {% if abbility.description %}
+                {% if ability.description %}
                 <div id="description" class="flex justify-center m-4 rounded bg-slate-100 bg-opacity-60 backdrop-blur-xl drop-shadow-lg">
                     <p class="m-1">
-                        {{ abbility.description }}
+                        {{ ability.description }}
                     </p>
                 </div>
                 {% endif %}
