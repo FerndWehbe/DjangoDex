@@ -3,7 +3,7 @@
 <div class="bg-gradient-to-tr from-orange-100 via-violet-600 to-sky-900">
     {% if ability_list %}
     {% for ability in ability_list %}
-    {% if forloop.counter0|divisibleby:4 %}<div class="flex flex-nowrap">{% endif %}
+    {% if forloop.counter0|divisibleby:4 %}<div class="flex flex-wrap">{% endif %}
         <div class="flex-1 p-4">
             <figure class="rounded-xl p-8 md:p-0 bg-slate-100 bg-opacity-10 backdrop-blur-lg drop-shadow-lg h-36 flex flex-col justify-between">
                 <div class="flex justify-center w-full font-medium mt-4">

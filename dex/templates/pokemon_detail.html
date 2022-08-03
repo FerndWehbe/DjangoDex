@@ -1,7 +1,7 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-<div class="flex justify-between items-center">
+<div class="flex justify-between items-center flex-wrap">
     <div class="flex flex-col items-center">
         <h1 class="inline-block text-2xl p-4 sm:text-3xl font-extrabold tracking-tight text-slate-800">
             {{ pokemon.name|capfirst }}</h1>
@@ -17,8 +17,8 @@
             {% endfor %}
         </div>
     </div>
-    <div id="status" class="w-1/2 h-auto px-3 pt-6 md:p8 text-left md:text-left space-y-4 flex">
-        <table class="px-10 items-center w-full bg-transparent border-collapse">
+    <div id="status" class="w-1/2 h-auto px-3 pt-6 md:p8 text-left md:text-left space-y-4 flex items-center">
+        <table class="px-10 w-full bg-transparent border-collapse">
             <thead>
                 <tr>
                     <th class="px-2 align-middle border-b border-solid py-3 text-base whitespace-nowrap">Status</th>
@@ -100,8 +100,8 @@
         </table>
     </div>
 </div>
-<div class="w-full mt-4 pt-4 flex" style="justify-content: space-around;">
-    <div class="ralative rounded-xl overflow-auto px-8" id="moves">
+<div class="w-full mt-4 pt-4 flex flex-wrap" style="justify-content: space-around;">
+    <div class="ralative rounded-xl overflow-auto px-8 m-4" id="moves">
         <table class="border-collapse table-auto w-full text-sm">
             <thead>
                 <tr>
@@ -134,7 +134,7 @@
             </tbody>
         </table>
     </div>
-    <div class="ralative rounded-xl overflow-auto px-12" id="abilities">
+    <div class="ralative rounded-xl overflow-auto px-12 m-4" id="abilities">
         <table class="border-collapse table-auto w-full text-sm">
             <thead>
                 <tr>

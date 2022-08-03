@@ -1,6 +1,6 @@
 {% extends "base_generic.html" %}
 {% block content %}
-<div class="flex justify-between">
+<div class="flex justify-between flex-col items-center">
     <div class="flex flex-col items-center w-1/4">
         <h1 id="move_name" class="inline-block text-2xl p-4 sm:text-3xl font-extrabold tracking-tight text-slate-800">
             {{ ability.name|capfirst }}
@@ -17,7 +17,7 @@
     <div id="pokemons" class="flex flex-col items-center w-full">
         {% if pokemons %}
         {% for pokemon in pokemons %}
-        {% if forloop.counter0|divisibleby:5 %}<div class="flex flex-nowrap">{% endif %}
+        {% if forloop.counter0|divisibleby:5 %}<div class="flex flex-wrap">{% endif %}
             <div class="flex-1 p-4">
                 <figure class="rounded-xl p-8 md:p-0 bg-slate-500 bg-opacity-10 backdrop-blur-lg drop-shadow-lg flex">
                     <div id="pokemon" class="h-full">

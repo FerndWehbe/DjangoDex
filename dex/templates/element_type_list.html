@@ -3,7 +3,7 @@
 <div class="bg-gradient-to-tr from-orange-100 via-violet-600 to-sky-900">
 {% if object_list %}
 {% for type in object_list %}
-{% if forloop.counter0|divisibleby:3 %}<div class="flex flex-nowrap">{% endif %}
+{% if forloop.counter0|divisibleby:3 %}<div class="flex flex-wrap">{% endif %}
     <div class="flex-1 p-4">
         <figure id="type" class="rounded-xl p-8 md:p-0 bg-slate-100 bg-opacity-10 backdrop-blur-lg drop-shadow-lg flex items-center justify-center h-40">
                     <button class="bg-{{ type.name }} shadow-slate-400 border-solid border-t-gray-50 text-slate-800 hover:opacity-80 rounded w-full h-full font-medium text-xl">
