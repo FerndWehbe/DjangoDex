@@ -130,9 +130,8 @@ dmypy.json
 .pyre/
 
 
-# Pokedex data
-Pokedex/
-read_json.py
-poke_moves_by_uplevel.json
+# Heroku deploy
+Procfile
 
-node_modules/
+# Tailwind dev
+static_src/
